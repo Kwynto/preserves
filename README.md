@@ -29,6 +29,48 @@ This package has two files `ordinary.go` for commonly used functions and `curios
 
 You can also contribute to this repository through a pull request and this toolbox will be our shared one.  
 If you want to add your own function to the repository, don't forget to write a test and a benchmark.  
+You can create your own file, for example `<your_name>.go` and `<your_name>_test.go` for testing (benchmarking).  
+Whatever the name of your file, the package must have the title `package preserves`.  
+
+**Check out the documentation**
+
+Look at the documentation in two steps.  
+First, in the console, run:
+> godoc -http=:8080
+
+And then in your web browser navigate to the uri:
+> http://localhost:8080
+
+*The `godoc` utility may not be present in your Go build and you may need to install it  
+command `go get -v golang.org/x/tools/cmd/godoc`*
+
+You can also use Go's standard functionality to view documentation in the console via `go doc`.  
+For example:  
+> go doc GenerateId
+
+If your IDE is good enough, then the documentation for functions and methods will be available from your code editor.
+
+**Testing**
+
+Run tests:
+> go test -v
+
+Run tests showing code coverage:
+> go test -cover -v
+
+You can view code coverage in detail in your web browser.  
+To do this, you need to sequentially execute two commands in the console:
+> go test -coverprofile="coverage.out" -v  
+> go tool cover -html="coverage.out"
+
+**Performance**
+
+You can look at code performance tests:
+> go test -benchmem -bench="." curiosity.go curiosity_test.go
+
+or
+> go test -benchmem -bench="." ordinary.go ordinary_test.go
+
 
 ## About the author
 
