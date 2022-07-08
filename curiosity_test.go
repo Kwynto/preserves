@@ -67,6 +67,50 @@ func TestConcatBuffer(t *testing.T) {
 	}
 }
 
+func TestConcatCopy(t *testing.T) {
+	type args struct {
+		len  int
+		vals []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Connecting strings via copy 1",
+			args: args{
+				len:  29,
+				vals: []string{"This ", "is ", "even ", "more ", "performant "},
+			},
+			want: "This is even more performant ",
+		},
+		{
+			name: "Connecting strings via copy 2",
+			args: args{
+				len:  13,
+				vals: []string{"Hello", ", ", "World", "!"},
+			},
+			want: "Hello, World!",
+		},
+		{
+			name: "Connecting strings via copy 3",
+			args: args{
+				len:  16,
+				vals: []string{"Golang ", "is ", "great", "."},
+			},
+			want: "Golang is great.",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ConcatCopy(tt.args.len, tt.args.vals...); got != tt.want {
+				t.Errorf("ConcatCopy() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -81,5 +125,12 @@ func Benchmark_ConcatBuffer(b *testing.B) {
 	var input = []string{"This ", "is ", "even ", "more ", "performant "}
 	for i := 0; i < b.N; i++ {
 		_ = ConcatBuffer(input...) // calling the tested function
+	}
+}
+
+func Benchmark_ConcatCopy(b *testing.B) {
+	var input = []string{"This ", "is ", "even ", "more ", "performant "}
+	for i := 0; i < b.N; i++ {
+		_ = ConcatCopy(29, input...) // calling the tested function
 	}
 }

@@ -16,10 +16,20 @@ func GenerateId() string {
 // The ConcatBuffer() function quickly concatenates strings.
 // This feature is useful for optimizing code that needs to quickly concatenate strings.
 func ConcatBuffer(vals ...string) string {
-	// strings := []string{"This ", "is ", "even ", "more ", "performant "}
 	buffer := bytes.Buffer{}
 	for _, val := range vals {
 		buffer.WriteString(val)
 	}
 	return buffer.String()
+}
+
+// The ConcatCopy() function is a very fast string concatenation, but requires knowing the length of the string, since anything over that length will be lost.
+// This feature is useful for optimizing code that needs to quickly concatenate strings.
+func ConcatCopy(len int, vals ...string) string {
+	bs := make([]byte, len)
+	bl := 0
+	for _, val := range vals {
+		bl += copy(bs[bl:], []byte(val))
+	}
+	return string(bs[:])
 }
