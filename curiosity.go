@@ -7,12 +7,16 @@ import (
 	"net/http"
 )
 
+// Math
+
 // The GenerateId() generates a new id in a random, cryptographically secure manner
 func GenerateId() string {
 	b := make([]byte, 32)
 	rand.Read(b)
 	return fmt.Sprintf("%x", b)
 }
+
+// Strings
 
 // The ConcatBuffer() function quickly concatenates strings.
 // This feature is useful for optimizing code that needs to quickly concatenate strings.
@@ -34,6 +38,8 @@ func ConcatCopy(len int, vals ...string) string {
 	}
 	return string(bs[:])
 }
+
+// Web
 
 // The DeleteCookie(w) function deletes the cookie
 func DeleteCookie(w *http.ResponseWriter, cookieName string) {
