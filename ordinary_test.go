@@ -1,11 +1,8 @@
 package preserves
 
 import (
-	"database/sql"
-	"reflect"
 	"testing"
-
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
 )
 
 // -------
@@ -31,40 +28,40 @@ func Test_RandInt(t *testing.T) {
 	}
 }
 
-func Test_OpenDB(t *testing.T) {
-	type args struct {
-		dsn string
-	}
+// func Test_OpenDB(t *testing.T) {
+// 	type args struct {
+// 		dsn string
+// 	}
 
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{
-			name: "No connected to DB MySQL",
-			args: args{
-				dsn: "_",
-			},
-			wantErr: true,
-		},
-	}
+// 	tests := []struct {
+// 		name    string
+// 		args    args
+// 		wantErr bool
+// 	}{
+// 		{
+// 			name: "No connected to DB MySQL",
+// 			args: args{
+// 				dsn: "_",
+// 			},
+// 			wantErr: true,
+// 		},
+// 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := OpenDB(tt.args.dsn)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("openDB() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			gotType := reflect.TypeOf((*sql.DB)(nil))
-			if (err != nil) && (reflect.TypeOf(got) != gotType) {
-				t.Errorf("openDB() error = %v", err)
-				return
-			}
-		})
-	}
-}
+// 	for _, tt := range tests {
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			got, err := OpenDB(tt.args.dsn)
+// 			if (err != nil) != tt.wantErr {
+// 				t.Errorf("openDB() error = %v, wantErr %v", err, tt.wantErr)
+// 				return
+// 			}
+// 			gotType := reflect.TypeOf((*sql.DB)(nil))
+// 			if (err != nil) && (reflect.TypeOf(got) != gotType) {
+// 				t.Errorf("openDB() error = %v", err)
+// 				return
+// 			}
+// 		})
+// 	}
+// }
 
 // ------------
 // Benchmarking
@@ -76,8 +73,8 @@ func Benchmark_RandInt(b *testing.B) {
 	}
 }
 
-func Benchmark_OpenDB(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		_, _ = OpenDB("_") // calling the tested function
-	}
-}
+// func Benchmark_OpenDB(b *testing.B) {
+// 	for i := 0; i < b.N; i++ {
+// 		_, _ = OpenDB("_") // calling the tested function
+// 	}
+// }
