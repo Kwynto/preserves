@@ -11,7 +11,7 @@ import (
 // Testing
 // -------
 
-func TestGenerateId(t *testing.T) {
+func Test_GenerateId(t *testing.T) {
 	testVar := make(map[int]string)
 	for i := 0; i < 1000; i++ {
 		testVar[i] = GenerateId() // calling the tested function
@@ -30,7 +30,7 @@ func TestGenerateId(t *testing.T) {
 	}
 }
 
-func TestConcatBuffer(t *testing.T) {
+func Test_ConcatBuffer(t *testing.T) {
 	type args struct {
 		vals []string
 	}
@@ -70,7 +70,7 @@ func TestConcatBuffer(t *testing.T) {
 	}
 }
 
-func TestConcatCopy(t *testing.T) {
+func Test_ConcatCopy(t *testing.T) {
 	type args struct {
 		len  int
 		vals []string
