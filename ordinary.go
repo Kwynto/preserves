@@ -5,8 +5,6 @@ import (
 	"errors"
 	"math/big"
 	"regexp"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // The RandInt() function generates a real random integer.
@@ -24,17 +22,3 @@ func FindEmail(input string) (string, error) {
 	}
 	return first, nil
 }
-
-// func OpenDB(dsn string) (*sql.DB, error) {
-// 	db, err := sql.Open("mysql", dsn)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	if err = db.Ping(); err != nil {
-// 		return nil, err
-// 	}
-// 	db.SetConnMaxLifetime(time.Minute * 5)
-// 	db.SetMaxOpenConns(100)
-// 	db.SetMaxIdleConns(5)
-// 	return db, nil
-// }
