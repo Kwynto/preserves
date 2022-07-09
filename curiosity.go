@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/rand"
 	"fmt"
+	"net/http"
 )
 
 // The GenerateId() generates a new id in a random, cryptographically secure manner
@@ -32,4 +33,14 @@ func ConcatCopy(len int, vals ...string) string {
 		bl += copy(bs[bl:], []byte(val))
 	}
 	return string(bs[:])
+}
+
+// The DeleteCookie(w) function deletes the cookie
+func DeleteCookie(w *http.ResponseWriter, cookieName string) {
+	cookie := &http.Cookie{
+		Name:   cookieName,
+		Value:  "",
+		MaxAge: -1,
+	}
+	http.SetCookie(*w, cookie)
 }

@@ -1,6 +1,9 @@
 package preserves
 
 import (
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -111,6 +114,40 @@ func TestConcatCopy(t *testing.T) {
 	}
 }
 
+func Test_DeleteCookie(t *testing.T) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		DeleteCookie(&w, "cookieName") // calling the tested function
+		io.WriteString(w, "<html><head><title>Title</title></head><body>Body</body></html>")
+	}
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/", nil)
+	cookie := &http.Cookie{
+		Name:   "cookieName",
+		Value:  "1234567890",
+		MaxAge: 0,
+	}
+	r.AddCookie(cookie)
+	handler(w, r)
+
+	status := w.Code
+	// work check
+	if status != http.StatusOK {
+		t.Errorf("Handler returned %v", status)
+	}
+
+	cookies := w.Result().Cookies()
+	noErr := true
+	for _, v := range cookies {
+		if v.Name == "cookieName" && v.Value == "1234567890" {
+			noErr = false
+		}
+	}
+	// work check
+	if !noErr {
+		t.Error("the server did not delete the cookie")
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -132,5 +169,23 @@ func Benchmark_ConcatCopy(b *testing.B) {
 	var input = []string{"This ", "is ", "even ", "more ", "performant "}
 	for i := 0; i < b.N; i++ {
 		_ = ConcatCopy(29, input...) // calling the tested function
+	}
+}
+
+func Benchmark_DeleteCookie(b *testing.B) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		DeleteCookie(&w, "cookieName") // calling the tested function
+	}
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/", nil)
+	cookie := &http.Cookie{
+		Name:   "cookieName",
+		Value:  "1234567890",
+		MaxAge: 0,
+	}
+	r.AddCookie(cookie)
+
+	for i := 0; i < b.N; i++ {
+		handler(w, r)
 	}
 }
