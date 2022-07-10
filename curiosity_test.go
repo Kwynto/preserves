@@ -148,6 +148,15 @@ func Test_DeleteCookie(t *testing.T) {
 	}
 }
 
+func Test_PerformanceTest(t *testing.T) {
+	count := PerformanceTest() // calling the tested function
+	// work check
+	if count < 1 {
+		t.Error("PerformanceTest() = No operation was performed.")
+	}
+	// fmt.Println(count)
+}
+
 // ------------
 // Benchmarking
 // ------------
