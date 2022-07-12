@@ -5,6 +5,8 @@ import (
 	// _ "github.com/go-sql-driver/mysql"
 )
 
+var resultFibo uint
+
 // -------
 // Testing
 // -------
@@ -75,6 +77,116 @@ func Test_FindEmail(t *testing.T) {
 	}
 }
 
+func Test_Fibo(t *testing.T) {
+	type args struct {
+		num uint
+	}
+	tests := []struct {
+		name string
+		args args
+		want uint
+	}{
+		{
+			name: "Fibonacci number 0.",
+			args: args{
+				num: 0,
+			},
+			want: 0,
+		},
+		{
+			name: "Fibonacci number 1.",
+			args: args{
+				num: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "Fibonacci number 2.",
+			args: args{
+				num: 2,
+			},
+			want: 1,
+		},
+		{
+			name: "Fibonacci number 3.",
+			args: args{
+				num: 3,
+			},
+			want: 2,
+		},
+		{
+			name: "Fibonacci number 4.",
+			args: args{
+				num: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Fibonacci number 5.",
+			args: args{
+				num: 5,
+			},
+			want: 5,
+		},
+		{
+			name: "Fibonacci number 6.",
+			args: args{
+				num: 6,
+			},
+			want: 8,
+		},
+		{
+			name: "Fibonacci number 7.",
+			args: args{
+				num: 7,
+			},
+			want: 13,
+		},
+		{
+			name: "Fibonacci number 8.",
+			args: args{
+				num: 8,
+			},
+			want: 21,
+		},
+		{
+			name: "Fibonacci number 9.",
+			args: args{
+				num: 9,
+			},
+			want: 34,
+		},
+		{
+			name: "Fibonacci number 10.",
+			args: args{
+				num: 10,
+			},
+			want: 55,
+		},
+		{
+			name: "Fibonacci number 11.",
+			args: args{
+				num: 11,
+			},
+			want: 89,
+		},
+		{
+			name: "Fibonacci number 12.",
+			args: args{
+				num: 12,
+			},
+			want: 144,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Fibo(tt.args.num); got != tt.want {
+				t.Errorf("Fibo() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -89,4 +201,24 @@ func Benchmark_FindEmail(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = FindEmail("email@example.com") // calling the tested function
 	}
+}
+
+func benchmarkFibo(b *testing.B, n uint) {
+	var r uint
+	for i := 0; i < b.N; i++ {
+		r = Fibo(n)
+	}
+	resultFibo = r
+}
+
+func Benchmark_30Fibo(b *testing.B) {
+	benchmarkFibo(b, 30)
+}
+
+func Benchmark_50Fibo(b *testing.B) {
+	benchmarkFibo(b, 50)
+}
+
+func Benchmark_150Fibo(b *testing.B) {
+	benchmarkFibo(b, 150)
 }

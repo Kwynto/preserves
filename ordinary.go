@@ -15,6 +15,22 @@ func RandInt(min, max int64) int64 {
 	return nBig.Int64() + min
 }
 
+func fiboInternal(n uint, a, b uint) uint {
+	// Internal function for use in Fibo(n)
+	if n == 1 {
+		return b
+	}
+	return fiboInternal(n-1, b, a+b)
+}
+
+// The Fibo() function is a fast implementation of the Fibonacci number via finite recursion.
+func Fibo(n uint) uint {
+	if n == 0 {
+		return 0
+	}
+	return fiboInternal(n, 0, 1)
+}
+
 // Web
 
 // The FindEmail() function looks for an email address in a string and returns it or an error.
