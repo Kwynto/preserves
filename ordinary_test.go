@@ -30,53 +30,6 @@ func Test_RandInt(t *testing.T) {
 	}
 }
 
-func Test_FindEmail(t *testing.T) {
-	type args struct {
-		val string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{
-			name: "Email search 1",
-			args: args{
-				val: "email@example.com",
-			},
-			want: "email@example.com",
-		},
-		{
-			name: "Email search 2",
-			args: args{
-				val: "other@domain.com",
-			},
-			want: "other@domain.com",
-		},
-		{
-			name: "Email search 3",
-			args: args{
-				val: "other-mail@other-domain.xyz",
-			},
-			want: "other-mail@other-domain.xyz",
-		},
-		{
-			name: "Email search 4",
-			args: args{
-				val: "other-mail&@other-!(domain)",
-			},
-			want: "",
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got, _ := FindEmail(tt.args.val); got != tt.want {
-				t.Errorf("FindEmail() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func Test_Fibo(t *testing.T) {
 	type args struct {
 		num uint
@@ -187,6 +140,53 @@ func Test_Fibo(t *testing.T) {
 	}
 }
 
+func Test_FindEmail(t *testing.T) {
+	type args struct {
+		val string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Email search 1",
+			args: args{
+				val: "email@example.com",
+			},
+			want: "email@example.com",
+		},
+		{
+			name: "Email search 2",
+			args: args{
+				val: "other@domain.com",
+			},
+			want: "other@domain.com",
+		},
+		{
+			name: "Email search 3",
+			args: args{
+				val: "other-mail@other-domain.xyz",
+			},
+			want: "other-mail@other-domain.xyz",
+		},
+		{
+			name: "Email search 4",
+			args: args{
+				val: "other-mail&@other-!(domain)",
+			},
+			want: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got, _ := FindEmail(tt.args.val); got != tt.want {
+				t.Errorf("FindEmail() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -194,12 +194,6 @@ func Test_Fibo(t *testing.T) {
 func Benchmark_RandInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = RandInt(0, int64(i+1)) // calling the tested function
-	}
-}
-
-func Benchmark_FindEmail(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		_, _ = FindEmail("email@example.com") // calling the tested function
 	}
 }
 
@@ -221,4 +215,10 @@ func Benchmark_50Fibo(b *testing.B) {
 
 func Benchmark_150Fibo(b *testing.B) {
 	benchmarkFibo(b, 150)
+}
+
+func Benchmark_FindEmail(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_, _ = FindEmail("email@example.com") // calling the tested function
+	}
 }
