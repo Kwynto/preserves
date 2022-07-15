@@ -5,6 +5,7 @@ import (
 	"errors"
 	"math/big"
 	"regexp"
+	"sort"
 )
 
 // Math
@@ -38,6 +39,17 @@ func MeanValue(x []float64) float64 {
 		sum = sum + v
 	}
 	return sum / float64(len(x))
+}
+
+// The MedianValue() function returns the median value of a slice of real numbers.
+func MedianValue(x []float64) float64 {
+	sort.Float64s(x)
+	length := len(x)
+	if length%2 == 1 {
+		return x[(length-1)/2]
+	} else {
+		return (x[length/2] + x[(length/2)-1]) / 2
+	}
 }
 
 // Web

@@ -180,6 +180,60 @@ func Test_MeanValue(t *testing.T) {
 	}
 }
 
+func Test_MedianValue(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "MedianValue 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 10.0,
+		},
+		{
+			name: "MedianValue 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MedianValue 1.0 2.0 3.0 4.0 5.0 10.0 10.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 10.0},
+			},
+			want: 4.0,
+		},
+		{
+			name: "MedianValue 2.0 1.0 4.0 5.0 3.0",
+			args: args{
+				num: []float64{2.0, 1.0, 4.0, 5.0, 3.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MedianValue 10.0 4.0 1.0 10.0 3.0 2.0 5.0",
+			args: args{
+				num: []float64{10.0, 4.0, 1.0, 10.0, 3.0, 2.0, 5.0},
+			},
+			want: 4.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MedianValue(tt.args.num); got != tt.want {
+				t.Errorf("MedianValue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_FindEmail(t *testing.T) {
 	type args struct {
 		val string
@@ -261,6 +315,12 @@ func Benchmark_150Fibo(b *testing.B) {
 func Benchmark_MeanValue(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = MeanValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
+	}
+}
+
+func Benchmark_MedianValue(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = MedianValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
 	}
 }
 
