@@ -72,6 +72,7 @@ You can look at code performance tests:
 or
 > go test -benchmem -bench="." ordinary.go ordinary_test.go
 
+**[⬆ back to top](#preserves)**
 
 ## About the author
 
@@ -79,3 +80,5 @@ The author of the project is Constantine Zavezeon (Kwynto).
 You can contact the author by e-mail: kwynto@mail.ru  
 The author accepts proposals for participation in open source projects,  
 as well as willing to accept job offers.
+
+**[⬆ back to top](#preserves)**
