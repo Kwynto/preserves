@@ -140,6 +140,46 @@ func Test_Fibo(t *testing.T) {
 	}
 }
 
+func Test_MeanValue(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "MeanValue 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 10.0,
+		},
+		{
+			name: "MeanValue 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MeanValue 1.0 2.0 3.0 4.0 5.0 10.0 10.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 10.0},
+			},
+			want: 5.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MeanValue(tt.args.num); got != tt.want {
+				t.Errorf("MeanValue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_FindEmail(t *testing.T) {
 	type args struct {
 		val string
@@ -197,24 +237,31 @@ func Benchmark_RandInt(b *testing.B) {
 	}
 }
 
+// Helper function for Fibo() benchmark
 func benchmarkFibo(b *testing.B, n uint) {
 	var r uint
 	for i := 0; i < b.N; i++ {
-		r = Fibo(n)
+		r = Fibo(n) // calling the tested function
 	}
 	resultFibo = r
 }
 
 func Benchmark_30Fibo(b *testing.B) {
-	benchmarkFibo(b, 30)
+	benchmarkFibo(b, 30) // helper function call
 }
 
 func Benchmark_50Fibo(b *testing.B) {
-	benchmarkFibo(b, 50)
+	benchmarkFibo(b, 50) // helper function call
 }
 
 func Benchmark_150Fibo(b *testing.B) {
-	benchmarkFibo(b, 150)
+	benchmarkFibo(b, 150) // helper function call
+}
+
+func Benchmark_MeanValue(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = MeanValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
+	}
 }
 
 func Benchmark_FindEmail(b *testing.B) {

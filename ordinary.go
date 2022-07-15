@@ -31,6 +31,15 @@ func Fibo(n uint) uint {
 	return fiboInternal(n, 0, 1)
 }
 
+// The MeanValue() function returns the average value from a slice of real numbers.
+func MeanValue(x []float64) float64 {
+	sum := float64(0)
+	for _, v := range x {
+		sum = sum + v
+	}
+	return sum / float64(len(x))
+}
+
 // Web
 
 // The FindEmail() function looks for an email address in a string and returns it or an error.
