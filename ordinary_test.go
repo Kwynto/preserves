@@ -234,6 +234,46 @@ func Test_MedianValue(t *testing.T) {
 	}
 }
 
+func Test_Variance(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "Variance 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 0.0,
+		},
+		{
+			name: "Variance 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 2.0,
+		},
+		{
+			name: "Variance 2.0 1.0 4.0 5.0 3.0",
+			args: args{
+				num: []float64{2.0, 1.0, 4.0, 5.0, 3.0},
+			},
+			want: 2.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Variance(tt.args.num); got != tt.want {
+				t.Errorf("Variance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_FindEmail(t *testing.T) {
 	type args struct {
 		val string
@@ -321,6 +361,12 @@ func Benchmark_MeanValue(b *testing.B) {
 func Benchmark_MedianValue(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = MedianValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
+	}
+}
+
+func Benchmark_Variance(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = Variance([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
 	}
 }
 

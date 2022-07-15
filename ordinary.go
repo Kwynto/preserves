@@ -52,6 +52,16 @@ func MedianValue(x []float64) float64 {
 	}
 }
 
+// The Variance() function returns the variance from a slice of real numbers.
+func Variance(x []float64) float64 {
+	mean := MeanValue(x)
+	sum := float64(0)
+	for _, v := range x {
+		sum = sum + (v-mean)*(v-mean)
+	}
+	return sum / float64(len(x))
+}
+
 // Web
 
 // The FindEmail() function looks for an email address in a string and returns it or an error.
