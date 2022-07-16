@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"net/http"
+	"sort"
 	"time"
 )
 
@@ -15,6 +16,36 @@ func GenerateId() string {
 	b := make([]byte, 32)
 	rand.Read(b)
 	return fmt.Sprintf("%x", b)
+}
+
+// The MeanValue() function returns the average value from a slice of real numbers.
+func MeanValue(x []float64) float64 {
+	sum := float64(0)
+	for _, v := range x {
+		sum = sum + v
+	}
+	return sum / float64(len(x))
+}
+
+// The MedianValue() function returns the median value of a slice of real numbers.
+func MedianValue(x []float64) float64 {
+	sort.Float64s(x)
+	length := len(x)
+	if length%2 == 1 {
+		return x[(length-1)/2]
+	} else {
+		return (x[length/2] + x[(length/2)-1]) / 2
+	}
+}
+
+// The Variance() function returns the variance from a slice of real numbers.
+func Variance(x []float64) float64 {
+	mean := MeanValue(x)
+	sum := float64(0)
+	for _, v := range x {
+		sum = sum + (v-mean)*(v-mean)
+	}
+	return sum / float64(len(x))
 }
 
 // Strings

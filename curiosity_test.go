@@ -30,6 +30,140 @@ func Test_GenerateId(t *testing.T) {
 	}
 }
 
+func Test_MeanValue(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "MeanValue 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 10.0,
+		},
+		{
+			name: "MeanValue 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MeanValue 1.0 2.0 3.0 4.0 5.0 10.0 10.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 10.0},
+			},
+			want: 5.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MeanValue(tt.args.num); got != tt.want {
+				t.Errorf("MeanValue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_MedianValue(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "MedianValue 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 10.0,
+		},
+		{
+			name: "MedianValue 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MedianValue 1.0 2.0 3.0 4.0 5.0 10.0 10.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 10.0},
+			},
+			want: 4.0,
+		},
+		{
+			name: "MedianValue 2.0 1.0 4.0 5.0 3.0",
+			args: args{
+				num: []float64{2.0, 1.0, 4.0, 5.0, 3.0},
+			},
+			want: 3.0,
+		},
+		{
+			name: "MedianValue 10.0 4.0 1.0 10.0 3.0 2.0 5.0",
+			args: args{
+				num: []float64{10.0, 4.0, 1.0, 10.0, 3.0, 2.0, 5.0},
+			},
+			want: 4.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MedianValue(tt.args.num); got != tt.want {
+				t.Errorf("MedianValue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_Variance(t *testing.T) {
+	type args struct {
+		num []float64
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "Variance 10.0 10.0",
+			args: args{
+				num: []float64{10.0, 10.0},
+			},
+			want: 0.0,
+		},
+		{
+			name: "Variance 1.0 2.0 3.0 4.0 5.0",
+			args: args{
+				num: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
+			},
+			want: 2.0,
+		},
+		{
+			name: "Variance 2.0 1.0 4.0 5.0 3.0",
+			args: args{
+				num: []float64{2.0, 1.0, 4.0, 5.0, 3.0},
+			},
+			want: 2.0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Variance(tt.args.num); got != tt.want {
+				t.Errorf("Variance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_ConcatBuffer(t *testing.T) {
 	type args struct {
 		vals []string
@@ -164,6 +298,24 @@ func Test_PerformanceTest(t *testing.T) {
 func Benchmark_GenerateId(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = GenerateId() // calling the tested function
+	}
+}
+
+func Benchmark_MeanValue(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = MeanValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
+	}
+}
+
+func Benchmark_MedianValue(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = MedianValue([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
+	}
+}
+
+func Benchmark_Variance(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = Variance([]float64{1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 45.0}) // calling the tested function
 	}
 }
 

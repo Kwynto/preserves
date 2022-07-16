@@ -5,7 +5,6 @@ import (
 	"errors"
 	"math/big"
 	"regexp"
-	"sort"
 )
 
 // Math
@@ -30,36 +29,6 @@ func Fibo(n uint) uint {
 		return 0
 	}
 	return fiboInternal(n, 0, 1)
-}
-
-// The MeanValue() function returns the average value from a slice of real numbers.
-func MeanValue(x []float64) float64 {
-	sum := float64(0)
-	for _, v := range x {
-		sum = sum + v
-	}
-	return sum / float64(len(x))
-}
-
-// The MedianValue() function returns the median value of a slice of real numbers.
-func MedianValue(x []float64) float64 {
-	sort.Float64s(x)
-	length := len(x)
-	if length%2 == 1 {
-		return x[(length-1)/2]
-	} else {
-		return (x[length/2] + x[(length/2)-1]) / 2
-	}
-}
-
-// The Variance() function returns the variance from a slice of real numbers.
-func Variance(x []float64) float64 {
-	mean := MeanValue(x)
-	sum := float64(0)
-	for _, v := range x {
-		sum = sum + (v-mean)*(v-mean)
-	}
-	return sum / float64(len(x))
 }
 
 // Web
