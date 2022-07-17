@@ -2,6 +2,7 @@ package preserves
 
 import (
 	cryptoRand "crypto/rand"
+	mathRand "math/rand"
 	"errors"
 	"math/big"
 	"regexp"
@@ -11,12 +12,20 @@ import (
 
 // The RandInt() function generates a real random integer.
 func RandInt(min, max int64) int64 {
+	// Attention: import cryptoRand "crypto/rand"
 	nBig, _ := cryptoRand.Int(cryptoRand.Reader, big.NewInt(max-min))
 	return nBig.Int64() + min
 }
 
+// The UsualRandInt() function generates a pseudo-random integer.
+func UsualRandInt(min, max int) int {
+	// Attention: import mathRand "math/rand"
+	return mathRand.Intn(max-min) + min
+}
+
 func fiboInternal(n uint, a, b uint) uint {
 	// Internal function for use in Fibo(n)
+	// This function implements the final recursion.
 	if n == 1 {
 		return b
 	}
