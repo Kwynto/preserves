@@ -2,6 +2,8 @@
 These are preparations of canned code for all occasions. Might come in handy sometime.  
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 
+**_This repository is under development._**
+
 ## Detailed description
 
 In any business, every master has a set of good tools, and coders have their own tools too.  
