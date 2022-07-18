@@ -4,7 +4,7 @@ These are preparations of canned code for all occasions. Might come in handy som
 [![Go Report Card](https://goreportcard.com/badge/github.com/Kwynto/preserves)](https://goreportcard.com/report/github.com/Kwynto/preserves)
 [![GitHub](https://img.shields.io/github/license/Kwynto/preserves)](https://github.com/Kwynto/preserves/blob/master/LICENSE)
 [![gocover.io](https://gocover.io/_badge/github.com/Kwynto/preserves)](https://gocover.io/github.com/Kwynto/preserves)
-![Coverage](https://img.shields.io/badge/Coverage-98.1%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 
 **_This repository is under development._**
 
