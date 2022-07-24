@@ -51,7 +51,8 @@ func FindEmail(input string) (string, error) {
 	return first, nil
 }
 
-func DownloadFile(sourceUrl string, dstFolder string) (int64, error) {
+// The DownloadFile() function downloads a file from a remote host and writes it to the specified folder, the function returns the file name.
+func DownloadFile(sourceUrl string, dstFolder string) (string, error) {
 	// Build fileName from fullPath
 	fileURL, _ := url.Parse(sourceUrl)
 	path := fileURL.Path
@@ -60,10 +61,10 @@ func DownloadFile(sourceUrl string, dstFolder string) (int64, error) {
 
 	// Create blank file
 	// fileName = ConcatBuffer(dstFolder, fileName)
-	fileName = fmt.Sprint(dstFolder, fileName)
-	file, err := os.Create(fileName)
+	dstAndFileName := fmt.Sprint(dstFolder, fileName)
+	file, err := os.Create(dstAndFileName)
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 	defer file.Close()
 
@@ -77,10 +78,10 @@ func DownloadFile(sourceUrl string, dstFolder string) (int64, error) {
 	client := http.Client{}
 	resp, err := client.Get(sourceUrl)
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 	defer resp.Body.Close()
 
-	size, err := io.Copy(file, resp.Body)
-	return size, err
+	_, err = io.Copy(file, resp.Body)
+	return fileName, err
 }
