@@ -1,7 +1,6 @@
 package preserves
 
 import (
-	"fmt"
 	"testing"
 	// _ "github.com/go-sql-driver/mysql"
 )
@@ -225,8 +224,7 @@ func Test_DownloadFile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if size, err := DownloadFile(tt.args.source, tt.args.dst); err != nil && tt.wanterr == false {
-				fmt.Println("Size: ", size)
+			if _, err := DownloadFile(tt.args.source, tt.args.dst); err != nil && tt.wanterr == false {
 				t.Errorf("DownloadFile() recive error = %v", err)
 			}
 		})
