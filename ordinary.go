@@ -3,8 +3,14 @@ package preserves
 import (
 	cryptoRand "crypto/rand"
 	"errors"
+	"fmt"
+	"io"
 	"math/big"
+	"net/http"
+	"net/url"
+	"os"
 	"regexp"
+	"strings"
 )
 
 // Math
@@ -43,4 +49,38 @@ func FindEmail(input string) (string, error) {
 		return "", errors.New("email address not found")
 	}
 	return first, nil
+}
+
+func DownloadFile(sourceUrl string, dstFolder string) (int64, error) {
+	// Build fileName from fullPath
+	fileURL, _ := url.Parse(sourceUrl)
+	path := fileURL.Path
+	segments := strings.Split(path, "/")
+	fileName := segments[len(segments)-1]
+
+	// Create blank file
+	// fileName = ConcatBuffer(dstFolder, fileName)
+	fileName = fmt.Sprint(dstFolder, fileName)
+	file, err := os.Create(fileName)
+	if err != nil {
+		return 0, err
+	}
+	defer file.Close()
+
+	// Put content on file
+	// client := http.Client{
+	// 	CheckRedirect: func(r *http.Request, via []*http.Request) error {
+	// 		r.URL.Opaque = r.URL.Path
+	// 		return nil
+	// 	},
+	// }
+	client := http.Client{}
+	resp, err := client.Get(sourceUrl)
+	if err != nil {
+		return 0, err
+	}
+	defer resp.Body.Close()
+
+	size, err := io.Copy(file, resp.Body)
+	return size, err
 }

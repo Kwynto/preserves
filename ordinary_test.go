@@ -1,6 +1,7 @@
 package preserves
 
 import (
+	"fmt"
 	"testing"
 	// _ "github.com/go-sql-driver/mysql"
 )
@@ -187,6 +188,51 @@ func Test_FindEmail(t *testing.T) {
 	}
 }
 
+func Test_DownloadFile(t *testing.T) {
+	type args struct {
+		source string
+		dst    string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wanterr bool
+	}{
+		{
+			name: "Download test - Source error",
+			args: args{
+				source: "ksh3khs87&kdhf9*&fkshd97kjk^(_@E.,dsj989sd||}NF",
+				dst:    "./testdata/",
+			},
+			wanterr: true,
+		},
+		{
+			name: "Download test - Normal test",
+			args: args{
+				source: "https://github.com/Kwynto/Kwynto/README.md",
+				dst:    "./testdata/",
+			},
+			wanterr: false,
+		},
+		{
+			name: "Download test - Space test",
+			args: args{
+				source: "",
+				dst:    "./testdata/",
+			},
+			wanterr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if size, err := DownloadFile(tt.args.source, tt.args.dst); err != nil && tt.wanterr == false {
+				fmt.Println("Size: ", size)
+				t.Errorf("DownloadFile() recive error = %v", err)
+			}
+		})
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -221,5 +267,11 @@ func Benchmark_150Fibo(b *testing.B) {
 func Benchmark_FindEmail(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = FindEmail("email@example.com") // calling the tested function
+	}
+}
+
+func Benchmark_DownloadFile(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_, _ = DownloadFile("", "./testdata/") // calling the tested function
 	}
 }
