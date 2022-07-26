@@ -111,7 +111,7 @@ func PerformanceTest() int {
 	return len(list)
 }
 
-// Функция UnZipFile() распаковывает конкретный файл из архива и записывает в указанное место. // FIXME: перевести
+// The UnZipFile() function unpacks a specific file from an archive and writes it to the specified location.
 func UnZipFile(zipFile, srcFile, dstFile string) bool {
 	var status bool = false
 	zipR, err := zip.OpenReader(zipFile)

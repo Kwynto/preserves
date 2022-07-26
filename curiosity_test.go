@@ -303,7 +303,7 @@ func Test_UnZipFile(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "Правильный тест", // FIXME: перевести
+			name: "Correct test.",
 			args: args{
 				zipFile: "./testdata/main.zip",
 				srcFile: "awesome-go-main/README.md",
@@ -312,7 +312,7 @@ func Test_UnZipFile(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "Не правильный архив",
+			name: "Incorrect archive.",
 			args: args{
 				zipFile: "./testdata/master.zip",
 				srcFile: "awesome-go-main/README.md",
@@ -321,7 +321,7 @@ func Test_UnZipFile(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "Не правильный искомый файл",
+			name: "The file you are looking for is not correct.",
 			args: args{
 				zipFile: "./testdata/main.zip",
 				srcFile: "awesome-go-main/ERROR.md",
