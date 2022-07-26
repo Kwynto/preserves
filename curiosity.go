@@ -1,10 +1,13 @@
 package preserves
 
 import (
+	"archive/zip"
 	"bytes"
 	"crypto/rand"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
 	"sort"
 	"time"
 )
@@ -106,4 +109,24 @@ func PerformanceTest() int {
 
 	<-done
 	return len(list)
+}
+
+// The UnZipFile() function unpacks a specific file from an archive and writes it to the specified location.
+func UnZipFile(zipFile, srcFile, dstFile string) bool {
+	var status bool = false
+	zipR, err := zip.OpenReader(zipFile)
+	if err != nil {
+		return status
+	}
+	for _, file := range zipR.File {
+		if file.Name == srcFile {
+			r, _ := file.Open()
+			outF, _ := os.Create(dstFile)
+			_, _ = io.Copy(outF, r)
+			_ = r.Close()
+			status = true
+			break
+		}
+	}
+	return status
 }
