@@ -291,6 +291,54 @@ func Test_PerformanceTest(t *testing.T) {
 	// fmt.Println(count)
 }
 
+func Test_UnZipFile(t *testing.T) {
+	type args struct {
+		zipFile string
+		srcFile string
+		dstFile string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Правильный тест",
+			args: args{
+				zipFile: "./testdata/main.zip",
+				srcFile: "awesome-go-main/README.md",
+				dstFile: "./testdata/unzipedRM1.md",
+			},
+			want: true,
+		},
+		{
+			name: "Не правильный архив",
+			args: args{
+				zipFile: "./testdata/master.zip",
+				srcFile: "awesome-go-main/README.md",
+				dstFile: "./testdata/uzerr1.md",
+			},
+			want: false,
+		},
+		{
+			name: "Не правильный искомый файл",
+			args: args{
+				zipFile: "./testdata/main.zip",
+				srcFile: "awesome-go-main/ERROR.md",
+				dstFile: "./testdata/ERROR.md",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := UnZipFile(tt.args.zipFile, tt.args.srcFile, tt.args.dstFile); got != tt.want {
+				t.Errorf("UnZipFile() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 // ------------
 // Benchmarking
 // ------------
@@ -348,5 +396,11 @@ func Benchmark_DeleteCookie(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		handler(w, r)
+	}
+}
+
+func Benchmark_UnZipFile(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = UnZipFile("./testdata/main.zip", "awesome-go-main/README.md", "./testdata/unzipedRM2.md") // calling the tested function
 	}
 }
