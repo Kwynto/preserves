@@ -11,6 +11,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 // Math
@@ -87,4 +88,38 @@ func DownloadFile(sourceUrl string, dstFolder string) (string, error) {
 
 	_, err = io.Copy(file, resp.Body)
 	return fileName, err
+}
+
+func Exp1() {
+	var w sync.WaitGroup
+	var sl []int = make([]int, 0)
+	m := sync.RWMutex{}
+	for i := 0; i < 100; i++ {
+		w.Add(1)
+		// i := i
+		go func(i int) {
+			m.Lock()
+			sl = append(sl, i)
+			m.Unlock()
+			w.Done()
+		}(i)
+	}
+	w.Wait()
+}
+
+func Exp2() {
+	var w sync.WaitGroup
+	var sl []int = make([]int, 0)
+	m := sync.RWMutex{}
+	for i := 0; i < 100; i++ {
+		w.Add(1)
+		i := i
+		go func() {
+			m.Lock()
+			sl = append(sl, i)
+			m.Unlock()
+			w.Done()
+		}()
+	}
+	w.Wait()
 }
