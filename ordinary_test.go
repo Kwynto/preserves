@@ -273,15 +273,3 @@ func Benchmark_DownloadFile(b *testing.B) {
 		_, _ = DownloadFile("", "./testdata/") // calling the tested function
 	}
 }
-
-func Benchmark_Exp1(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Exp1() // calling the tested function
-	}
-}
-
-func Benchmark_Exp2(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Exp2() // calling the tested function
-	}
-}
