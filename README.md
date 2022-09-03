@@ -20,8 +20,13 @@ You can quickly connect all the tools from this set
 
 In your Go code, connect the blanks like this:  
 ```go
-import "github.com/Kwynto/preserves"
+import "github.com/Kwynto/preserves/pkg/ordinary"
 ```
+or
+```go
+import "github.com/Kwynto/preserves/pkg/curiosity"
+```
+and more.
 
 When you stop using this package, do not forget to get rid of unnecessary dependencies in your project  
 > go mod tidy
@@ -32,14 +37,15 @@ If you want to increase the efficiency of your code, then you will need to take 
 To do this, you will need to first copy the entire repository to yourself.  
 > git clone https://github.com/Kwynto/preserves.git
 
-This package has two files `ordinary.go` for commonly used functions and `curiosity.go` for functions that are rarely needed.  
+There are two main packages in this repository `./pkg/ordinary` for frequently used functions and `./pkg/curiosity` for rarely used functions, as well as other packages.
 
 You can also contribute to this repository through a pull request and this toolbox will be our shared one.  
 If you want to add your own function to the repository, don't forget to write a test and a benchmark.  
-You can create your own file, for example `<your_name>.go` and `<your_name>_test.go` for testing (benchmarking).  
-Whatever the name of your file, the package must have the title `package preserves`.  
+You can create your own package like `./pkg/<your_name>`.  
 
 **Check out the documentation**
+
+First you need to go to the folder with any package from this repository, for example `./pkg/ordinary`.  
 
 Look at the documentation in two steps.  
 First, in the console, run:
