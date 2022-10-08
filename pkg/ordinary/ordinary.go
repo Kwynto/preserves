@@ -1,4 +1,4 @@
-package preserves
+package ordinary
 
 import (
 	cryptoRand "crypto/rand"
@@ -54,6 +54,7 @@ func FindEmail(input string) (string, error) {
 // The DownloadFile() function downloads a file from a remote host and writes it to the specified folder, the function returns the file name.
 func DownloadFile(sourceUrl string, dstFolder string) (string, error) {
 	// Build fileName from fullPath
+	// fileURL := guard url.Parse(sourceUrl)
 	fileURL, _ := url.Parse(sourceUrl)
 	path := fileURL.Path
 	segments := strings.Split(path, "/")
@@ -62,6 +63,7 @@ func DownloadFile(sourceUrl string, dstFolder string) (string, error) {
 	// Create blank file
 	// fileName = ConcatBuffer(dstFolder, fileName)
 	dstAndFileName := fmt.Sprint(dstFolder, fileName)
+	// file := guard os.Create(dstAndFileName)
 	file, err := os.Create(dstAndFileName)
 	if err != nil {
 		return "", err
@@ -76,6 +78,7 @@ func DownloadFile(sourceUrl string, dstFolder string) (string, error) {
 	// 	},
 	// }
 	client := http.Client{}
+	// resp := guard client.Get(sourceUrl)
 	resp, err := client.Get(sourceUrl)
 	if err != nil {
 		return "", err

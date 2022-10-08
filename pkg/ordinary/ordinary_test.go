@@ -1,4 +1,4 @@
-package preserves
+package ordinary
 
 import (
 	"testing"
