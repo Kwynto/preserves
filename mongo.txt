@@ -1,0 +1,125 @@
+// Вставить одну запись
+db.users.insert({
+name: "kwynto",
+age: 40
+})
+
+db.users.insertOne({
+name: "kwynto",
+age: 40
+})
+
+
+// Вставить несколько
+db.users.insertMany([
+	{name: "vasya", age: 28},
+	{name: "petya", age: 23},
+	{name: "dima", age: 35},
+	{name: "anton", age: 24},
+	{name: "kwynto", age: 42}
+])
+
+
+// Поиск -  показать всех
+db.users.find()
+
+// Поиск по полю, по двум полям, или по разным полям
+db.users.find({name: "kwynt"})
+db.users.find({name: "kwynto", age: 25})
+db.users.find({$or:[{name: "kwynto"}, {age: 35}]})
+
+
+// Поиск меньше, меньше или равно, больше, больше или равно, не равно
+db.users.find({age: {$lt: 28}})
+db.users.find({age: {$lte: 28}})
+db.users.find({age: {$gt: 28}})
+db.users.find({age: {$gte: 28}})
+db.users.find({age: {$ne: 28}})
+
+
+// Сортировка прямая и обратная
+db.users.find().sort({age:1})
+db.users.find().sort({age:-1})
+
+
+// Ограничение
+db.users.find().limit(2)
+
+// Поиск по ID
+db.users.findOne({_id: ObjectId("636d546c33c5103c6f97682d")})
+
+// Поиск одной записи
+db.users.findOne({age: 23})
+
+// Поиск и замена (обновление) - первое найденное
+db.users.update(
+	{name: "kwynto"},
+	{
+		$set: {
+			name: "ilon",
+			age: 45
+		}
+	}
+)
+
+// Изменяем название поля поля а не его содержания) у всех объектов, поле name на fullname
+db.users.updateMany(
+	{},
+	{
+		$rename: {
+			name: "fullname"
+		}
+	}
+)
+
+// Удаление пользователя
+db.users.deleteOne({age: 24})
+
+
+// Несколько операция в одной комманде
+db.users.bulkWrite([
+	{
+		insertOne: {
+			document: {fullname: "nastya", age: 18}
+		}
+	},
+	{
+		deleteOne: {
+			filter: {fullname: "petya"}
+		}
+	}
+])
+
+
+// Связи
+
+// Один ко многим
+db.users.update(
+	{fullname: "ilon"},
+	{
+		$set: {
+			posts: [
+				{title: 'javascript', text: 'js top'},
+				{title: 'mongo', text: 'database'},
+			]
+		}
+	}
+)
+
+db.users.findOne(
+	{fullname: "ilon"},
+	{posts:1}
+)
+
+db.users.find(
+	{
+		posts: {
+			$elemMatch: {
+				title: "javascript"
+			}
+		}
+	}
+)
+
+db.users.find({posts: {$exists: true}})
+
