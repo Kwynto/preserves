@@ -21,11 +21,7 @@ You can quickly connect all the tools from this set
 In your Go code, connect the blanks like this:  
 ```go
 import "github.com/Kwynto/preserves/pkg/ordinary"
-```
-or
-```go
-import "github.com/Kwynto/preserves/pkg/curiosity"
-```
+``` 
 and more.
 
 When you stop using this package, do not forget to get rid of unnecessary dependencies in your project  
@@ -37,15 +33,13 @@ If you want to increase the efficiency of your code, then you will need to take 
 To do this, you will need to first copy the entire repository to yourself.  
 > git clone https://github.com/Kwynto/preserves.git
 
-There are two main packages in this repository `./pkg/ordinary` for frequently used functions and `./pkg/curiosity` for rarely used functions, as well as other packages.
+There are two main files in this repository `./ordinary.go` for frequently used functions and `./curiosity.go` for rarely used functions, as well as other packages.
 
 You can also contribute to this repository through a pull request and this toolbox will be our shared one.  
 If you want to add your own function to the repository, don't forget to write a test and a benchmark.  
 You can create your own package like `./pkg/<your_name>`.  
 
 **Check out the documentation**
-
-First you need to go to the folder with any package from this repository, for example `./pkg/ordinary`.  
 
 Look at the documentation in two steps.  
 First, in the console, run:
@@ -66,10 +60,14 @@ If your IDE is good enough, then the documentation for functions and methods wil
 **Testing**
 
 Run tests:
-> go test -v
+> go test ordinary.go ordinary_test.go -v
+or 
+> go test curiosity.go curiosity_test.go -v
 
 Run tests showing code coverage:
-> go test -cover -v
+> > go test ordinary.go ordinary_test.go -v -cover
+or 
+> go test curiosity.go curiosity_test.go -v -cover
 
 You can view code coverage in detail in your web browser.  
 To do this, you need to sequentially execute two commands in the console:
@@ -79,9 +77,8 @@ To do this, you need to sequentially execute two commands in the console:
 **Performance**
 
 You can look at code performance tests:
-> go test -benchmem -bench="." curiosity.go curiosity_test.go
-
-or
+> go test -benchmem -bench="." curiosity.go curiosity_test.go 
+or 
 > go test -benchmem -bench="." ordinary.go ordinary_test.go
 
 **[⬆ back to top](#preserves)**
