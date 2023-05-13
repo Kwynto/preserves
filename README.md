@@ -20,7 +20,11 @@ You can quickly connect all the tools from this set
 
 In your Go code, connect the blanks like this:  
 ```go
-import "github.com/Kwynto/preserves/pkg/ordinary"
+import "github.com/Kwynto/preserves/ordinary"
+``` 
+or 
+```go
+import "github.com/Kwynto/preserves/curiosity"
 ``` 
 and more.
 
