@@ -24,9 +24,12 @@ jobs:
     # - name: Build
     #   run: go build -v ./...
 
-    - name: Test
-      run: go test -coverprofile="coverage.txt" -v ./...
-    
+    - name: Test ordinary
+      run: go test -coverprofile="coverage_ordinary.txt" -v ./ordinary_test.go ./ordinary.go
+
+    - name: Test curiosity
+      run: go test -coverprofile="coverage_curiosity.txt" -v ./curiosity_test.go ./curiosity.go
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:

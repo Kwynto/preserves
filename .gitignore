@@ -19,3 +19,6 @@ PR
 /testdata/*.md
 /pkg/ordinary/testdata/*.md
 /pkg/curiosity/testdata/*.md
+
+/coverage_curiosity.txt
+/coverage_ordinary.txt
