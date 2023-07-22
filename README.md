@@ -3,6 +3,7 @@ These are preparations of canned code for all occasions. Might come in handy som
 [![GoDoc](https://godoc.org/github.com/Kwynto/preserves?status.svg)](https://godoc.org/github.com/Kwynto/preserves)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Kwynto/preserves)](https://goreportcard.com/report/github.com/Kwynto/preserves)
 [![GitHub](https://img.shields.io/github/license/Kwynto/preserves)](https://github.com/Kwynto/preserves/blob/master/LICENSE)
+[![codecov](https://codecov.io/gh/Kwynto/preserves/branch/main/graph/badge.svg?token=077VB7XVQN)](https://codecov.io/gh/Kwynto/preserves) 
 
 **_This repository is under development._**
 
